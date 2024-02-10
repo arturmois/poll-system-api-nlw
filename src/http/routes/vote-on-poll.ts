@@ -29,6 +29,14 @@ export async function voteOnPoll(app: FastifyInstance) {
       })
     }
 
-    return reply.status(201).send({ sessionId })
+    await prisma.vote.create({
+      data: {
+        sessionId,
+        pollId,
+        pollOptionId
+      }
+    })
+
+    return reply.status(201).send()
   })
 }
